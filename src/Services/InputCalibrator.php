@@ -150,6 +150,11 @@ class InputCalibrator
         $alt_name = (isset($field['alt_name'])) ? $field['alt_name'] : ucfirst($column);
         $placeholder = (isset($field['placeholder'])) ? $field['placeholder'] : $this->cleanString($alt_name);
 
+        // Language translations
+        if (substr($placeholder, 0, 5) == 'lang:') {
+            $placeholder = trans(substr($placeholder, 5));
+        }
+
         return $placeholder;
     }
 
