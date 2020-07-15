@@ -182,8 +182,9 @@ class HtmlGenerator
         }
 
         if (!isset($config['config']['selected'])) {
+            $selected = '';
+
             if (!isset($config['config']['multiple'])) {
-                $selected = '';
 
                 if (is_object($object) && method_exists($object, $relationship)) {
                     if ($object->$relationship()->first()) {
@@ -199,7 +200,9 @@ class HtmlGenerator
                     }
                 }
             } else {
-                $selected = $object->$relationship()->get()->pluck($value, $label);
+                if (is_object($object) && method_exists($object, $relationship)) {
+                    $selected = $object->$relationship()->get()->pluck($value, $label);
+                }
             }
         } else {
             $selected = $config['config']['selected'];
